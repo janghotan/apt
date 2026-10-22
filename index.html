@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rewind APT repository</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: #080b0f radial-gradient(900px 500px at 85% -10%, #123c39 0%, #080b0f 70%) no-repeat;
+    color: #dbe6ef;
+    font: 16px/1.65 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex; justify-content: center;
+  }
+  main { width: min(860px, 92vw); padding: 72px 0 96px; }
+  .brand { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
+  .mark { color: #34d399; font-size: 42px; line-height: 1; }
+  h1 { font: 700 44px/1.1 ui-monospace, "JetBrains Mono", monospace; letter-spacing: -1px; margin: 0; color: #f2f7fb; }
+  .tagline { color: #93a5b6; font-size: 18px; margin: 0 0 44px; }
+  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .12em; color: #7dd3c7; margin: 44px 0 14px; }
+  p { color: #b7c6d4; }
+  a { color: #5eead4; }
+  pre {
+    background: #0d141c; border: 1px solid #22303f; border-radius: 12px;
+    padding: 20px 22px; overflow-x: auto;
+    font: 14px/1.7 ui-monospace, "JetBrains Mono", monospace; color: #e6edf3;
+  }
+  code { font-family: ui-monospace, "JetBrains Mono", monospace; }
+  .prompt { color: #5eead4; user-select: none; }
+  .comment { color: #64748b; }
+  .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
+  .card { background: #0d141c; border: 1px solid #1e2b38; border-radius: 12px; padding: 16px 18px; }
+  .card b { display: block; color: #f2f7fb; font-size: 14px; margin-bottom: 4px; }
+  .card span { color: #8fa2b3; font-size: 14px; }
+  footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid #16212c; color: #5d6f80; font-size: 13px; }
+  .fingerprint { font: 12px/1.6 ui-monospace, monospace; color: #8fa2b3; word-break: break-all; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><span class="mark">↶</span><h1>rewind</h1></div>
+  <p class="tagline">Universal undo for destructive shell commands.</p>
+
+  <h2>Install on Debian or Ubuntu</h2>
+  <pre><span class="comment"># 1. Trust the archive key</span>
+sudo install -d -m 0755 /etc/apt/keyrings
+curl -fsSL https://janghotan.github.io/apt/rewind-archive-keyring.gpg \
+  | sudo tee /etc/apt/keyrings/rewind.gpg >/dev/null
+
+<span class="comment"># 2. Add the repository</span>
+echo "deb [signed-by=/etc/apt/keyrings/rewind.gpg] https://janghotan.github.io/apt stable main" \
+  | sudo tee /etc/apt/sources.list.d/rewind.list
+
+<span class="comment"># 3. Install</span>
+<span class="prompt">$</span> sudo apt update
+<span class="prompt">$</span> sudo apt install rewind</pre>
+
+  <h2>Then enable the shell hook</h2>
+  <pre><span class="comment"># bash</span>
+echo 'eval "$(rewind init bash)"' >> ~/.bashrc
+
+<span class="comment"># zsh</span>
+echo 'eval "$(rewind init zsh)"' >> ~/.zshrc
+
+<span class="comment"># fish</span>
+echo 'rewind init fish | source' >> ~/.config/fish/config.fish</pre>
+
+  <div class="meta">
+    <div class="card"><b>Architectures</b><span>amd64 · arm64</span></div>
+    <div class="card"><b>Suite</b><span>stable (flat repository)</span></div>
+    <div class="card"><b>Runtime dependencies</b><span>none — statically linked</span></div>
+    <div class="card"><b>Latest version</b><span>0.1.0-1</span></div>
+  </div>
+
+  <h2>Signing key</h2>
+  <p class="fingerprint">5E4B 6F8C F986 92B9 3FA0&nbsp; 930E 4B23 A539 82AF 1E48<br>
+  rewind archive signing key &lt;janghotan@users.noreply.github.com&gt;</p>
+  <p><a href="rewind-archive-keyring.gpg">Download the keyring</a> · <a href="https://github.com/janghotan/rewind">Source code</a> · <a href="https://github.com/janghotan/rewind/releases">Releases</a></p>
+
+  <footer>
+    Packages are built from tagged releases and signed with the key above.
+    Verify with <code>apt-key</code>-free <code>signed-by</code>; no packages are installed automatically.
+  </footer>
+</main>
+</body>
+</html>
