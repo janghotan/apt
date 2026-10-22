@@ -2,12 +2,12 @@ Package: rewind
 Version: 0.1.0-1
 Architecture: arm64
 Maintainer: janghotan <janghotan@users.noreply.github.com>
-Installed-Size: 3212
+Installed-Size: 3268
 Filename: pool/main/r/rewind/rewind_0.1.0-1_arm64.deb
-Size: 1292068
-MD5sum: b9655ebcf8928e16b0b8f24ec9c145f5
-SHA1: 441118fa76b280b16aee630d9f282869d5f45b85
-SHA256: 0d841434ccb7f5e364d15bd464cc25bb231fa3dc28356003130bf9010b48ec77
+Size: 1292340
+MD5sum: 8d2f64b02c9b7577a36e1229f6ec396e
+SHA1: 7bcb5c66db9b24284eea2ee93dcdb32e275a628c
+SHA256: ff3c7057ed7e300bc90ba675f5ab75c3e1e6d5b31c04ec9bcab634b4fbf89635
 Section: utils
 Priority: optional
 Homepage: https://github.com/janghotan/rewind
