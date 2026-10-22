@@ -12,6 +12,11 @@ if [[ $# -eq 0 ]]; then
     exit 2
 fi
 
+gpg --list-secret-keys >/dev/null 2>&1 || {
+    echo "no GPG secret key available; set GNUPGHOME or import the archive key" >&2
+    exit 1
+}
+
 mkdir -p pool/main/r/rewind dists/stable/main/binary-amd64 dists/stable/main/binary-arm64
 
 for deb in "$@"; do
@@ -46,6 +51,13 @@ gpg --batch --yes --clearsign -o dists/stable/InRelease dists/stable/Release
 gpg --batch --yes --armor --detach-sign -o dists/stable/Release.gpg dists/stable/Release
 gpg --batch --yes --export > rewind-archive-keyring.gpg
 gpg --batch --yes --armor --export > rewind-archive-keyring.asc
+
+latest=$(for deb in pool/main/r/rewind/*.deb; do
+    dpkg-deb -f "$deb" Version
+done | sort -Vu | tail -1)
+if [[ -f index.html && -n ${latest:-} ]]; then
+    sed -i -E "s#(<!--latest-->)[^<]*(<!--/latest-->)#\\1${latest}\\2#" index.html
+fi
 
 echo
 echo "Repository updated and signed."
